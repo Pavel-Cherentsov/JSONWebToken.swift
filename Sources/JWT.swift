@@ -3,6 +3,18 @@ import CryptoSwift
 
 public typealias Payload = [String: Any]
 
+extension Dictionary {
+    func mergedWith(otherDictionary: [Key: Value]) -> [Key: Value] {
+        var mergedDict: [Key: Value] = [:]
+        [self, otherDictionary].forEach { dict in
+            for (key, value) in dict {
+                mergedDict[key] = value
+            }
+        }
+        return mergedDict
+    }
+}
+
 /// The supported Algorithms
 public enum Algorithm : CustomStringConvertible {
   /// No Algorithm, i-e, insecure
@@ -72,7 +84,7 @@ public enum Algorithm : CustomStringConvertible {
   - parameter algorithm: The algorithm to sign the payload with
   - returns: The JSON web token as a String
 */
-public func encode(_ payload:Payload, algorithm:Algorithm) -> String {
+public func encode(_ payload:Payload, additionalHeaders:[String:AnyObject] = nil, algorithm:Algorithm) -> String {
   func encodeJSON(_ payload:Payload) -> String? {
     if let data = try? JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions(rawValue: 0)) {
       return base64encode(data)
@@ -81,7 +93,12 @@ public func encode(_ payload:Payload, algorithm:Algorithm) -> String {
     return nil
   }
 
-  let header = encodeJSON(["typ": "JWT" as AnyObject, "alg": algorithm.description as AnyObject])!
+  let headers = ["typ": "JWT" as AnyObject, "alg": algorithm.description as AnyObject]
+  if let additionalHeaders = additionalHeaders {
+    headers = headers.mergedWith(otherDictionary: additionalHeaders)
+  }
+
+  let header = encodeJSON(headers)!
   let payload = encodeJSON(payload)!
   let signingInput = "\(header).\(payload)"
   let signature = algorithm.sign(signingInput)
