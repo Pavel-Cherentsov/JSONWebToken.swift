@@ -93,7 +93,8 @@ public func encode(_ payload:Payload, additionalHeaders:[String:AnyObject]? = ni
     return nil
   }
 
-  let headers = ["typ": "JWT" as AnyObject, "alg": algorithm.description as AnyObject]
+  var headers = ["typ": "JWT" as AnyObject, "alg": algorithm.description as AnyObject]
+  
   if let additionalHeaders = additionalHeaders {
     headers = headers.mergedWith(otherDictionary: additionalHeaders)
   }
