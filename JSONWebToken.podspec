@@ -2,10 +2,10 @@ Pod::Spec.new do |spec|
   spec.name = 'JSONWebToken'
   spec.version = '2.0.1'
   spec.summary = 'Swift library for JSON Web Tokens (JWT).'
-  spec.homepage = 'https://github.com/kylef/JSONWebToken.swift'
+  spec.homepage = 'https://github.com/brentschooley/JSONWebToken.swift'
   spec.license = { :type => 'BSD', :file => 'LICENSE' }
   spec.author = { 'Kyle Fuller' => 'kyle@fuller.li' }
-  spec.source = { :git => 'https://github.com/kylef/JSONWebToken.swift.git', :tag => "#{spec.version}" }
+  spec.source = { :git => 'https://github.com/brentschooley/JSONWebToken.swift.git', :tag => "#{spec.version}" }
   spec.source_files = 'Sources/*.swift'
   spec.ios.deployment_target = '8.0'
   spec.osx.deployment_target = '10.9'
