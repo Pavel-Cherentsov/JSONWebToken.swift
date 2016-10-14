@@ -84,7 +84,7 @@ public enum Algorithm : CustomStringConvertible {
   - parameter algorithm: The algorithm to sign the payload with
   - returns: The JSON web token as a String
 */
-public func encode(_ payload:Payload, additionalHeaders:[String:AnyObject] = nil, algorithm:Algorithm) -> String {
+public func encode(_ payload:Payload, additionalHeaders:[String:AnyObject]? = nil, algorithm:Algorithm) -> String {
   func encodeJSON(_ payload:Payload) -> String? {
     if let data = try? JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions(rawValue: 0)) {
       return base64encode(data)
