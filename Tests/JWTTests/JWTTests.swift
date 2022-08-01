@@ -6,8 +6,8 @@ class JWTEncodeTests : XCTestCase {
   func testEncodingJWT() {
     let payload = ["name": "Kyle"] as Payload
     let jwt = JWT.encode(payload, algorithm: .hs256("secret".data(using: .utf8)!))
-    let fixture = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSJ9.zxm7xcp1eZtZhp4t-nlw09ATQnnFKIiSN83uG8u6cAg"
-    XCTAssertEqual(jwt, fixture)
+    XCTAssert(jwt == "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiS3lsZSJ9.4tCpoxfyfjbUyLjm9_zu-r52Vxn6bFq9kp6Rt9xMs4A"
+           || jwt == "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSJ9.zxm7xcp1eZtZhp4t-nlw09ATQnnFKIiSN83uG8u6cAg")
   }
 
   func testEncodingWithBuilder() {
