@@ -41,7 +41,7 @@ public enum Algorithm : CustomStringConvertible {
       } catch {
         result = []
       }
-      return base64encode(Data(bytes: result))
+      return base64encode(Data(_: result))
     }
 
     switch self {
@@ -49,13 +49,13 @@ public enum Algorithm : CustomStringConvertible {
       return ""
 
     case .hs256(let key):
-      return signHS(key, variant: .sha256)
+      return signHS(key, variant: .sha2(SHA2.Variant.sha256))
 
     case .hs384(let key):
-      return signHS(key, variant: .sha384)
+      return signHS(key, variant: .sha2(SHA2.Variant.sha384))
 
     case .hs512(let key):
-      return signHS(key, variant: .sha512)
+      return signHS(key, variant: .sha2(SHA2.Variant.sha512))
     }
   }
 
