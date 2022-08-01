@@ -84,7 +84,7 @@ public func encode(_ payload:Payload, additionalHeaders:[String:String]? = nil, 
   var headers = ["typ": "JWT", "alg": algorithm.description]
 
   if let additionalHeaders = additionalHeaders {
-    headers = headers.mergedWith(otherDictionary: additionalHeaders)
+    headers = headers.merging(additionalHeaders) { (_, new) in new }
   }
 
   let header = encodeJSON(headers)!
